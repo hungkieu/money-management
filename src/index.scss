@@ -1,0 +1,307 @@
+$text: rgba(0, 0, 0, 0.87);
+$green: rgba(77, 213, 153, 1);
+$red: #ffa48e;
+$space: 7px;
+$duration: 0.6s;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-size: 2 * $space;
+  font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $text;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+%flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes In {
+  0% {
+    opacity: 0;
+    top: $space;
+    left: $space;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+    left: 0;
+  }
+}
+
+@keyframes Out {
+  0% {
+    opacity: 1;
+    top: 0;
+    left: 0;
+  }
+  100% {
+    opacity: 0;
+    top: $space;
+    left: $space;
+  }
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.blur {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}
+
+.RootScreen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  transition: all $duration / 2 linear;
+}
+
+.Money {
+  @extend %flex-center;
+  height: 40%;
+  width: 100%;
+  color: $green;
+  position: relative;
+  word-break: break-all;
+  animation: In $duration ease forwards;
+}
+
+.ListExchange {
+  height: 50%;
+  width: 100%;
+  padding: $space $space * 2;
+  overflow: hidden;
+  position: relative;
+  animation: In $duration ease forwards;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    list-style-type: none;
+    overflow-y: scroll;
+    li {
+      position: relative;
+      display: flex;
+      flex-shrink: 0;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 48px;
+      padding: 0 $space * 2 0 $space * 4;
+
+      .Date {
+        color: rgb(160, 160, 160);
+      }
+
+      &.plus::before {
+        content: "";
+        width: $space * 2;
+        height: $space * 2;
+        border-radius: 50%;
+        position: absolute;
+        top: 17px;
+        left: $space;
+        background: $green;
+      }
+
+      &.minus::before {
+        content: "";
+        width: $space * 2;
+        height: $space * 2;
+        border-radius: 50%;
+        position: absolute;
+        top: 17px;
+        left: $space;
+        background: $red;
+      }
+    }
+  }
+}
+
+.CreateTransaction {
+  @extend %flex-center;
+  width: 100%;
+  flex-grow: 1;
+  position: relative;
+  animation: In $duration ease forwards;
+
+  button {
+    @extend %flex-center;
+    background: $green;
+    color: white;
+    font-size: 1.5em;
+    border-radius: $space;
+    padding: $space $space * 3;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.Exchange {
+  @extend %flex-center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.33);
+  overflow: hidden;
+
+  .ExchangeTypeChoices {
+    display: flex;
+    flex-direction: column;
+    padding: $space * 2;
+    border-radius: $space;
+    background: white;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.33);
+    position: relative;
+    top: $space;
+    left: $space;
+    opacity: 0;
+    transition: all ease $duration;
+
+    button {
+      font-weight: bold;
+      padding: $space * 2 $space * 3;
+      border-radius: $space;
+      background: rgba(244, 244, 244, 1);
+      transition: all ease $duration;
+
+      &.minus {
+        background: $red;
+        margin-bottom: $space * 2;
+      }
+    }
+
+    &.In {
+      animation: In $duration ease $duration forwards;
+    }
+
+    &.Out {
+      @keyframes ExchangeOut {
+        0% {
+          padding: $space * 2;
+          top: 0;
+          left: 0;
+          opacity: 1;
+        }
+        100% {
+          padding: 70% 50%;
+          top: 0;
+          left: 0;
+          opacity: 1;
+        }
+      }
+      animation: ExchangeOut $duration ease forwards;
+
+      button {
+        animation: Out $duration / 2 ease forwards;
+      }
+    }
+  }
+
+
+  .ExchangeAmount {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: white;
+
+    input {
+      width: 0;
+      height: 0;
+      opacity: 0;
+    }
+
+    &.Out {
+      @keyframes ExchangeAmountOut {
+        0% {
+          transform: translateY(0%);
+        }
+        100% {
+          transform: translateY(100%);
+        }
+      }
+      animation: ExchangeAmountOut $duration ease forwards;
+    }
+
+    .tool {
+      width: 100%;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cancel, .ok {
+      @extend %flex-center;
+      color: white;
+      font-size: 1.5em;
+      padding-bottom: $space;
+      padding-top: $space;
+    }
+
+    .ok {
+      padding-right: $space;
+      padding-left: $space * 2;
+      background: $green;
+      border-top-left-radius: $space * 2;
+      border-bottom-left-radius: $space * 2;
+    }
+
+    .cancel {
+      padding-left: $space;
+      padding-right: $space * 2;
+      background: $red;
+      border-top-right-radius: $space * 2;
+      border-bottom-right-radius: $space * 2;
+    }
+  }
+}

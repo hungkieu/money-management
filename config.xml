@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.cordova.hellocordova" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Money Management</name>
     <description>
         Ứng dụng theo dõi chi tiêu.
     </description>
-    <author email="hungkieu.h12@gmail.com" href="http://cordova.io">
+    <author email="hungkieu.h12@gmail.com" href="https://elastic-noether-8e5df9.netlify.com/">
         Hungkieu.h12@gmail.com
     </author>
     <content src="index.html" />

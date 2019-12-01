@@ -1,4 +1,6 @@
 #! /bin/bash
 
-cd ./mm && yarn build
+npm run build
+cordova platforms rm android
+cordova platforms add android
 cordova build android
